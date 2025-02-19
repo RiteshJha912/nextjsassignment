@@ -1,29 +1,9 @@
-/**
- * This file (`app/products/[id]/page.tsx`) is responsible for displaying the details of a specific product.
- * 
- * Key functionalities:
- * - **Dynamic Routing:** Uses Next.js dynamic route (`[id]`) to fetch and display product details based on the URL parameter.
- * - **State Management:** Uses Zustand (`useStore.ts`) to manage selected product state, quantity selection, and actions like incrementing/decrementing quantity.
- * - **API Integration:** Fetches product details from an external API (`services/api.ts`) when the page loads.
- * - **Navigation:** Uses Next.js `useRouter` for navigating back to the previous page.
- * - **UI Components:** Utilizes shared components like `Toast.tsx` for user feedback (e.g., "Added to cart" notification).
- * - **Error Handling & Loading State:** Displays appropriate messages if the product is not found or while data is being loaded.
- * - **Product Interactions:** Allows users to adjust quantity and add the product to the cart.
- * 
- * This file plays a crucial role in handling the user experience for viewing individual product details within the Next.js app.
- */
-
-
-
-
-
-
 // app/products/[id]/page.tsx
 'use client';
 
 import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Minus, Plus } from 'lucide-react';
+import { ChevronLeft, Minus, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { Toast } from '@/components/Toast';
 import { apiService } from '@/services/api';
@@ -48,6 +28,23 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [isPlusActive, setIsPlusActive] = useState(false);
+  const [isMinusActive, setIsMinusActive] = useState(false);
+
+  const handleIncrement = () => {
+    incrementQuantity();
+    setIsPlusActive(true);
+    setTimeout(() => setIsPlusActive(false), 300); 
+  };
+
+  const handleDecrement = () => {
+    decrementQuantity();
+    setIsMinusActive(true);
+    setTimeout(() => setIsMinusActive(false), 300); 
+  };
+
+
+  
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -72,20 +69,16 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
   if (loading) {
     return (
-      <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
-        <div className="flex justify-center items-center h-screen">
-          Loading...
-        </div>
+      <div className="p-4 max-w-md mx-auto bg-[#171616] min-h-screen text-white flex items-center justify-center">
+        Loading...
       </div>
     );
   }
 
   if (error || !selectedProduct) {
     return (
-      <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
-        <div className="flex justify-center items-center h-screen">
-          {error || 'Product not found'}
-        </div>
+      <div className="p-4 max-w-md mx-auto bg-[#171616] min-h-screen text-white flex items-center justify-center">
+        {error || 'Product not found'}
       </div>
     );
   }
@@ -96,58 +89,89 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
+    <div className="p-4 max-w-md mx-auto bg-[#171616] min-h-screen text-white flex flex-col">
       <button
         onClick={() => router.back()}
         className="mb-4 hover:opacity-80 transition-opacity"
       >
-        <ArrowLeft className="w-6 h-6" />
+        <ChevronLeft className="w-[24px] h-[24px] top-[30px] left-[30px]" />
       </button>
 
-      <img
-        src={selectedProduct.images[0] || selectedProduct.thumbnail}
-        alt={selectedProduct.title}
-        className="w-full h-64 object-cover rounded-lg mb-4"
-      />
-
-      <div className="flex justify-between items-center mb-2">
-        <h1 className="text-2xl font-bold">{selectedProduct.title}</h1>
-        <div className="flex items-center">
-          <span className="text-yellow-400">★</span>
-          <span className="ml-1">{selectedProduct.rating}</span>
-        </div>
+      <div className="relative w-full">
+        <img
+          src={selectedProduct.images[0] || selectedProduct.thumbnail}
+          alt={selectedProduct.title}
+          className="w-full max-h-[400px] object-contain rounded-lg"
+        />
       </div>
 
-      <p className="text-gray-400 mb-4">{selectedProduct.description}</p>
+      <div className="mt-6">
+        <div className="flex justify-between items-center mb-3">
+          <h1 className="text-[24px] font-bold">{selectedProduct.title}</h1>
+          <div className="flex items-center">
+            <span className="text-yellow-400 text-[20px]">★</span>
+            <span className="ml-1 text-[20px]">{selectedProduct.rating}</span>
+          </div>
 
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={decrementQuantity}
-            className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors"
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <span>{quantity}</span>
-          <button
-            onClick={incrementQuantity}
-            className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
         </div>
-        <span className="text-xl font-bold">${selectedProduct.price}</span>
+
+        <p className="mb-6 mr-[40px]" style={{ color: "#FCF9F2" }}>
+          {selectedProduct.description}
+        </p>
+
+        <div className="flex justify-between items-center">
+  <div className="flex items-center gap-4">
+    <button
+      onClick={handleDecrement}
+      className={`p-2 border-2 rounded-full transition-transform transform active:scale-90 
+                  focus:outline-none focus-visible:outline-none ${
+                    isMinusActive ? "border-[#F9D03F] text-[#F9D03F]" : "border-[#696969] text-[#696969]"
+                  }`}
+    >
+      <Minus className="w-[10px] h-[10px]" />
+    </button>
+
+    <span className={`${isPlusActive || isMinusActive ? "text-[#F9D03F]" : "text-[#696969]"} text-lg`}>
+      {quantity}
+    </span>
+
+    <button
+      onClick={handleIncrement}
+      className={`p-2 border-2 rounded-full transition-transform transform active:scale-90 
+                  focus:outline-none focus-visible:outline-none ${
+                    isPlusActive ? "border-[#F9D03F] text-[#F9D03F]" : "border-[#696969] text-[#696969]"
+                  }`}
+    >
+      <Plus className="w-[10px] h-[10px]" />
+    </button>
+  </div>
+  <span className="text-[25px] font-bold">${selectedProduct.price}</span>
+</div>
+
       </div>
 
+      <div className="fixed bottom-4 left-0 w-full px-[30px] flex justify-center">
       <button
         onClick={handleAddToCart}
-        className="w-full bg-yellow-400 text-black py-3 rounded-lg mt-8 font-medium
-                 hover:bg-yellow-500 transition-colors"
+        className="w-full max-w-md text-black py-3 text-[18px] font-medium transition-colors 
+                  rounded-[12px] shadow-lg"
+        style={{
+          background: "linear-gradient(95.15deg, #F9D03F 17.18%, #E9B32A 71.35%)",
+          boxShadow: "0px 4px 24px 4px #F9D14033"
+        }}
       >
         Add to cart
       </button>
+    </div>
 
-      {showToast && <Toast message="Added to cart" />}
+
+{showToast && (
+  <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full flex justify-center">
+    <div className="bg-black text-white px-4 py-2 rounded-lg shadow-lg">
+      Added to cart
+    </div>
+  </div>
+)}
     </div>
   );
 }
