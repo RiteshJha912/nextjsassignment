@@ -11,15 +11,15 @@ export function CategoryTabs({
   onSelect: (category: string) => void;
 }) {
   return (
-    <div className="flex gap-2 overflow-x-auto py-2">
+<div className="flex gap-[10px] overflow-x-auto py-2 custom-scroll mt-[14px] ml-[10px] mb-[14px]">
       {categories.map((category) => (
         <button
           key={category.id}
           onClick={() => onSelect(category.id)}
-          className={`px-4 py-2 rounded-full whitespace-nowrap ${
+            className={`px-4 py-2 rounded-[12px]  whitespace-nowrap text-[14px] font-normal ${
             activeCategory === category.id
               ? 'bg-yellow-400 text-black'
-              : 'bg-gray-800 text-white'
+              : 'bg-customBg text-categoryTxt'
           }`}
         >
           {category.name}

@@ -1,3 +1,23 @@
+/**
+ * This file (`app/products/page.tsx`) is responsible for displaying the list of products and managing category-based filtering.
+ * 
+ * Key functionalities:
+ * - **State Management:** Uses Zustand (`useStore.ts`) to store and update the list of products globally.
+ * - **API Integration:** Fetches all products and categories from the API (`services/api.ts`) when the page loads.
+ * - **Category Handling:** Extracts unique categories from the product list and allows users to filter products based on selected categories.
+ * - **Dynamic UI Rendering:** Displays loading states, error messages, and the product grid dynamically based on API responses.
+ * - **Component Integration:** Uses `ProductCard.tsx` to display individual products and `CategoryTabs.tsx` for category selection.
+ * - **Error Handling & Loading State:** Provides user feedback in case of errors and shows a loading indicator while fetching data.
+ * 
+ * This file serves as the main entry point for browsing products, enabling category-based filtering and improving the user experience.
+ */
+
+
+
+
+
+
+
 // app/products/page.tsx
 'use client';
 
@@ -79,7 +99,7 @@ export default function ProductsPage() {
 
   if (error) {
     return (
-      <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
+      <div className="p-4 max-w-md mx-auto min-h-screen bg-[#171616] text-white">
         <div className="flex justify-center items-center h-screen">
           {error}
         </div>
@@ -88,8 +108,10 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
-      <h1 className="text-2xl font-bold mb-4">Product List</h1>
+    <div className="p-4 max-w-md mx-auto min-h-screen bg-[#171616] text-white">
+    <h1 className="text-[36px] font-normal text-white mt-[79px] ml-[26px]">
+      Product List
+    </h1>
       
       {formattedCategories.length > 0 && (
         <CategoryTabs

@@ -1,3 +1,23 @@
+/**
+ * This file (`app/products/[id]/page.tsx`) is responsible for displaying the details of a specific product.
+ * 
+ * Key functionalities:
+ * - **Dynamic Routing:** Uses Next.js dynamic route (`[id]`) to fetch and display product details based on the URL parameter.
+ * - **State Management:** Uses Zustand (`useStore.ts`) to manage selected product state, quantity selection, and actions like incrementing/decrementing quantity.
+ * - **API Integration:** Fetches product details from an external API (`services/api.ts`) when the page loads.
+ * - **Navigation:** Uses Next.js `useRouter` for navigating back to the previous page.
+ * - **UI Components:** Utilizes shared components like `Toast.tsx` for user feedback (e.g., "Added to cart" notification).
+ * - **Error Handling & Loading State:** Displays appropriate messages if the product is not found or while data is being loaded.
+ * - **Product Interactions:** Allows users to adjust quantity and add the product to the cart.
+ * 
+ * This file plays a crucial role in handling the user experience for viewing individual product details within the Next.js app.
+ */
+
+
+
+
+
+
 // app/products/[id]/page.tsx
 'use client';
 

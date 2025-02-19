@@ -1,5 +1,5 @@
-/* app/globals.css */
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+/* app/globals.css */
 
 @tailwind base;
 @tailwind components;
@@ -7,11 +7,44 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-rgb: 0, 0, 0;
+  --background-rgb: 23, 22, 22;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
   font-family: 'Lato', sans-serif;
+  background-color: #171616 !important;
+}
+
+/* Hide scrollbar on small screens */
+@media (max-width: 768px) {
+  .custom-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Minimal aesthetic scrollbar for larger screens */
+@media (min-width: 769px) {
+  .custom-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scroll:hover::-webkit-scrollbar-thumb {
+    background-color: #555;
+  }
 }
