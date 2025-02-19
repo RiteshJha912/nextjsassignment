@@ -5,8 +5,8 @@ import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Minus, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
-import { Toast } from '@/components/Toast';
 import { apiService } from '@/services/api';
+import Image from "next/image";
 
 interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
@@ -14,7 +14,7 @@ interface ProductDetailPageProps {
 
 export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const router = useRouter();
-  const resolvedParams = use(params);
+  const resolvedParams = use(params); // Properly unwrap the params Promise
   const {
     selectedProduct,
     setSelectedProduct,
@@ -34,17 +34,15 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const handleIncrement = () => {
     incrementQuantity();
     setIsPlusActive(true);
-    setTimeout(() => setIsPlusActive(false), 300); 
+    setTimeout(() => setIsPlusActive(false), 200);
   };
 
   const handleDecrement = () => {
     decrementQuantity();
     setIsMinusActive(true);
-    setTimeout(() => setIsMinusActive(false), 300); 
+    setTimeout(() => setIsMinusActive(false), 200);
   };
 
-
-  
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -98,11 +96,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       </button>
 
       <div className="relative w-full">
-        <img
-          src={selectedProduct.images[0] || selectedProduct.thumbnail}
-          alt={selectedProduct.title}
-          className="w-full max-h-[400px] object-contain rounded-lg"
-        />
+      <Image 
+        src={selectedProduct.images[0] || selectedProduct.thumbnail} 
+        alt={selectedProduct.title} 
+        width={400}
+        height={400}
+        className="w-full max-h-[400px] object-contain rounded-lg"
+      />
       </div>
 
       <div className="mt-6">

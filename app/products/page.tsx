@@ -36,30 +36,29 @@ export default function ProductsPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Fetch categories and initial products
-  useEffect(() => {
-    const init = async () => {
-      try {
-        setLoading(true);
-        // Fetch all products first to get initial data
-        const allProducts = await apiService.getAllProducts();
-        setProducts(allProducts);
-        
-        // Extract unique categories from products
-        const uniqueCategories = [...new Set(allProducts.map(product => product.category))];
-        setCategories(uniqueCategories);
-        if (uniqueCategories.length > 0) {
-          setActiveCategory(uniqueCategories[0]);
+    useEffect(() => {
+      const init = async () => {
+        try {
+          setLoading(true);
+          const allProducts = await apiService.getAllProducts();
+          
+          setProducts(allProducts); // Using functional update
+          
+          const uniqueCategories = [...new Set(allProducts.map(product => product.category))];
+          setCategories(uniqueCategories);
+          if (uniqueCategories.length > 0) {
+            setActiveCategory(uniqueCategories[0]);
+          }
+        } catch (err) {
+          setError('Failed to load products');
+          console.error('Initialization error:', err);
+        } finally {
+          setLoading(false);
         }
-      } catch (err) {
-        setError('Failed to load products');
-        console.error('Initialization error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    init();
-  }, []); // Only run on mount
+      init();
+    }, [setProducts]);
 
   // Handle category changes
   useEffect(() => {
