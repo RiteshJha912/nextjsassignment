@@ -1,3 +1,4 @@
+//components/CategoryTabs.jsx
 import { Category } from '@/types';
 
 export function CategoryTabs({ 

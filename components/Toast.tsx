@@ -1,3 +1,4 @@
+//components/Toast.jsx
 import { useEffect, useState } from 'react';
 
 export function Toast({ message }: { message: string }) {

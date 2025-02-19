@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, Minus, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { Toast } from '@/components/Toast';
+import { apiService } from '@/services/api';
 
 export default function ProductDetailPage({ 
   params 
@@ -22,23 +23,41 @@ export default function ProductDetailPage({
     resetQuantity
   } = useStore();
   const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // In a real app, fetch from API
-    // For demo, use static data
-    setSelectedProduct({
-      id: 1,
-      title: 'Unicorn Sprinkles',
-      description: 'A fluffy fresh cooked donut covered by a creamy strawberry flavour with rainbow sprinkles.',
-      price: 7.8,
-      rating: 4.0,
-      category: 'donuts',
-      images: ['/unicorn-sprinkles.jpg']
-    });
-    resetQuantity();
-  }, []);
+    const fetchProduct = async () => {
+      setLoading(true);
+      const product = await apiService.getProduct(params.id);
+      if (product) {
+        setSelectedProduct(product);
+      }
+      setLoading(false);
+      resetQuantity();
+    };
 
-  if (!selectedProduct) return null;
+    fetchProduct();
+  }, [params.id, setSelectedProduct, resetQuantity]);
+
+  if (loading) {
+    return (
+      <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
+        <div className="flex justify-center items-center h-screen">
+          Loading...
+        </div>
+      </div>
+    );
+  }
+
+  if (!selectedProduct) {
+    return (
+      <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
+        <div className="flex justify-center items-center h-screen">
+          Product not found
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 max-w-md mx-auto bg-black min-h-screen text-white">
