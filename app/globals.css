@@ -17,7 +17,6 @@ body {
   background-color: #171616 !important;
 }
 
-/* Hide scrollbar on small screens */
 @media (max-width: 768px) {
   .custom-scroll::-webkit-scrollbar {
     display: none;
@@ -29,7 +28,6 @@ body {
   }
 }
 
-/* Minimal aesthetic scrollbar for larger screens */
 @media (min-width: 769px) {
   .custom-scroll::-webkit-scrollbar {
     height: 4px;

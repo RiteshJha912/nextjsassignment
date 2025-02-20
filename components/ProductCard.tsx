@@ -11,8 +11,8 @@ export function ProductCard({ product }: { product: Product }) {
         <Image
           src={product.images[0] || product.thumbnail}
           alt={product.title}
-          width={95}  // Set explicit width
-          height={77} // Set explicit height
+          width={95}  
+          height={77} 
           className="object-contain rounded-lg mb-2 mx-auto"
         />
 

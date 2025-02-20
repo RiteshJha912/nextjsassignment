@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Lato", "sans-serif"], // Use Lato as the default sans-serif font
+        sans: ["Lato", "sans-serif"],
       },
       colors: {
         customBg: "#171616",

@@ -1,3 +1,31 @@
+## View Live here : https://miniecombezt.vercel.app/products/2
+## Project Structure 
+```
+root/  
+├── app/  
+│    ├── products/  
+│    │     ├── [id]/                # Dynamic route for product details  
+│    │     │   └── page.tsx         # Individual product page  
+│    │     └── page.tsx             # Main products listing page  
+│    ├── favicon.ico                # Favicon for the app  
+│    ├── globals.css                # Global styles  
+│    ├── layout.tsx                 # Root layout for the app  
+│    └── page.tsx                    # Home page  
+├── components/                      # Reusable UI components  
+│    ├── CategoryTabs.jsx           # Category navigation tabs  
+│    ├── ProductCard.jsx            # Product display card  
+│    └── Toast.jsx                   # Toast notification component  
+├── public/                          # Static assets (images, icons, etc.)  
+├── services/                        # API and data fetching services  
+│    └── api.ts                      # API service functions  
+├── store/                           # State management (Zustand or similar)  
+│    └── useStore.ts                 # Centralized store logic  
+├── types/                           # Type definitions for TypeScript  
+│    └── index.ts                     # Global types  
+└── Rest of the files               # Other necessary configurations, dependencies, etc.  
+```
+
+---
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

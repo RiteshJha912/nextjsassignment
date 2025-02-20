@@ -14,7 +14,7 @@ interface ProductDetailPageProps {
 
 export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const router = useRouter();
-  const resolvedParams = use(params); // Properly unwrap the params Promise
+  const resolvedParams = use(params); 
   const {
     selectedProduct,
     setSelectedProduct,
@@ -99,23 +99,23 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       <Image 
         src={selectedProduct.images[0] || selectedProduct.thumbnail} 
         alt={selectedProduct.title} 
-        width={400}
-        height={400}
+        width={250}
+        height={250}
         className="w-full max-h-[400px] object-contain rounded-lg"
       />
       </div>
 
       <div className="mt-6">
         <div className="flex justify-between items-center mb-3">
-          <h1 className="text-[24px] font-bold">{selectedProduct.title}</h1>
+          <h1 className="text-[20px] font-bold">{selectedProduct.title}</h1>
           <div className="flex items-center">
             <span className="text-yellow-400 text-[20px]">★</span>
-            <span className="ml-1 text-[20px]">{selectedProduct.rating}</span>
+            <span className="ml-1 text-[16px]">{selectedProduct.rating}</span>
           </div>
 
         </div>
 
-        <p className="mb-6 mr-[40px]" style={{ color: "#FCF9F2" }}>
+        <p className="mb-4 mr-[40px] text-[14px]" style={{ color: "#FCF9F2" }}>
           {selectedProduct.description}
         </p>
 
@@ -145,7 +145,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       <Plus className="w-[10px] h-[10px]" />
     </button>
   </div>
-  <span className="text-[25px] font-bold">${selectedProduct.price}</span>
+  <span className="text-[20px] font-bold">${selectedProduct.price}</span>
 </div>
 
       </div>
@@ -153,7 +153,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       <div className="fixed bottom-4 left-0 w-full px-[30px] flex justify-center">
       <button
         onClick={handleAddToCart}
-        className="w-full max-w-md text-black py-3 text-[18px] font-medium transition-colors 
+        className="w-full max-w-md text-black py-2 text-[16px] font-medium transition-colors 
                   rounded-[12px] shadow-lg"
         style={{
           background: "linear-gradient(95.15deg, #F9D03F 17.18%, #E9B32A 71.35%)",

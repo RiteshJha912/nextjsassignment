@@ -35,14 +35,13 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch categories and initial products
     useEffect(() => {
       const init = async () => {
         try {
           setLoading(true);
           const allProducts = await apiService.getAllProducts();
           
-          setProducts(allProducts); // Using functional update
+          setProducts(allProducts); 
           
           const uniqueCategories = [...new Set(allProducts.map(product => product.category))];
           setCategories(uniqueCategories);
@@ -60,7 +59,6 @@ export default function ProductsPage() {
       init();
     }, [setProducts]);
 
-  // Handle category changes
   useEffect(() => {
     const fetchProductsForCategory = async () => {
       if (!activeCategory) return;
@@ -82,7 +80,6 @@ export default function ProductsPage() {
     }
   }, [activeCategory, setProducts]);
 
-  // Format category name for display
   const formatCategoryName = (category: string): string => {
     return category
       .replace(/-/g, ' ')
@@ -99,7 +96,7 @@ export default function ProductsPage() {
   if (error) {
     return (
       <div className="p-4 max-w-md mx-auto min-h-screen bg-[#171616] text-white">
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-60 text-[14px]">
           {error}
         </div>
       </div>
@@ -107,8 +104,8 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="p-4 max-w-md mx-auto min-h-screen bg-[#171616] text-white">
-    <h1 className="text-[36px] font-normal text-white mt-[79px] ml-[26px]">
+    <div className="p-3 max-w-md mx-auto min-h-screen bg-[#171616] text-white">
+    <h1 className="text-[24px] font-medium text-white mt-[50px] ml-[20px]">
       Product List
     </h1>
       
@@ -121,11 +118,11 @@ export default function ProductsPage() {
       )}
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-48 text-[14px]">
           Loading...
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="grid grid-cols-2 gap-3 mt-3">
           {products.map((product: Product) => (
             <ProductCard key={product.id} product={product} />
           ))}
