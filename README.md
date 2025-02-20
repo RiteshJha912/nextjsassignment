@@ -1,4 +1,4 @@
-## View Live here : https://miniecombezt.vercel.app/products/2
+## View Live here : https://miniecombezt.vercel.app/
 ## Project Structure 
 ```
 root/  
