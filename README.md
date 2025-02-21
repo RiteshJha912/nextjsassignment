@@ -45,28 +45,28 @@ root/
 
 ##  Features  
 
-✅ **Product Listing Page** (`/products`)  
+**Product Listing Page** (`/products`)  
 - Displays product categories and a list of items fetched from the API.  
 - Clicking on a product navigates to its **detailed view**.  
 
-✅ **Product Detail Page** (`/products/[id]`)  
+**Product Detail Page** (`/products/[id]`)  
 - Shows detailed information about the selected product.  
 - Allows users to **adjust item quantity**.  
 - A "Back" button returns to the product listing page.  
 - Clicking "Add to Cart" triggers a **toast notification** (Cart functionality is not implemented).  
 
-✅ **Reusable Components**  
+**Reusable Components**  
 - **CategoryTabs**: Enables easy category navigation.  
 - **ProductCard**: Displays product details in a card format.  
 - **Toast Notification**: Provides feedback when adding items to the cart.  
 
 
 
-## 🏗️ Getting Started  
+## Getting Started  
 
 Follow these steps to set up the project locally.  
 
-### 1️⃣ Install Dependencies  
+### Install Dependencies  
 
 ```bash
 npm install
@@ -84,6 +84,6 @@ yarn dev
 pnpm dev
 ```
 
-### 📖 Additional Resources
+### Additional Resources
 Figma Design:  [View here](https://www.figma.com/design/suuDUPDXOYsCvQWXNNFebq/Untitled?node-id=0-1&t=MCffsBH1WFo6BAkf-1)  
 Dummy API Docs:  [dummyjson.com](https://dummyjson.com/docs/products)  
